@@ -90,7 +90,7 @@ class ScoreSkill(MycroftSkill):
     #   'Howdy you great big world'
     #   'Greetings planet earth'
 
-    @ intent_handler(IntentBuilder("").require("Team").require("Score"))
+    @ intent_handler(IntentBuilder("GetScoreIntent").require("Team").require("Score"))
     def handle_score_intent(self, message):
         self.team = message.data["Team"]
         self.get_result()
