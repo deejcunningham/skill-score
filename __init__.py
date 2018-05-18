@@ -11,9 +11,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
-# TODO: add datetime and mlbgame to the requirements.txt
 from datetime import date
-# TODO: Check mlbgame permissions/license
 import mlbgame
 
 # __author__ and LOGGER may not be required...?
@@ -50,7 +48,7 @@ class ScoreSkill(MycroftSkill):
             counter += 1
 
     def get_result(self):
-        latest_game()
+        self.latest_game()
         # Separates out team names and scores
         result = str(self.game).split()
         team_1 = result[0]
