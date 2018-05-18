@@ -12,7 +12,7 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 from mycroft import intent_handler
 
-Afrom datetime import date
+from datetime import date
 import mlbgame
 
 # __author__ and LOGGER may not be required...?
