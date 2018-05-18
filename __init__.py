@@ -70,9 +70,9 @@ class ScoreSkill(MycroftSkill):
             self.opponent_score = team_1_score
 
         # Compare scores for actual result
-        if self.team_score == self.opp_score:
+        if self.team_score == self.opponent_score:
             self.result = "tied"
-        if self.team_score < self.opp_score:
+        if self.team_score < self.opponent_score:
             self.result = "lost"
         else:   # Assume win
             self.result = "won"
