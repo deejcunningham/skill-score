@@ -33,7 +33,7 @@ class ScoreSkill(MycroftSkill):
         today = str(date.today())
         year = int(today[0:4])
         month = int(today[5:7])
-        day = int(today[8:0])
+        day = int(today[8:])
         return year, month, day
 
     def latest_game(self):
