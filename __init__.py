@@ -10,8 +10,9 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
+from mycroft import intent_handler
 
-from datetime import date
+Afrom datetime import date
 import mlbgame
 
 # __author__ and LOGGER may not be required...?
