@@ -51,7 +51,7 @@ class ScoreSkill(MycroftSkill):
     def get_result(self):
         self.latest_game()
         # Separates out team names and scores
-        result = str(self.game).split()
+        result = str(self.game[0]).split()
         team_1 = result[0]
         team_1_score = int(''.join(i for i in result[1] if i.isdigit()))
         team_2 = result[3]
