@@ -17,7 +17,7 @@ import mlbgame
 
 # __author__ and LOGGER may not be required...?
 __author__ = 'permanentlytemporary'
-LOGGER = getLogger(__name__)
+# LOGGER = getLogger(__name__)
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
