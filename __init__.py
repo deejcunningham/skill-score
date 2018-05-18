@@ -70,12 +70,12 @@ class ScoreSkill(MycroftSkill):
             self.opponent_score = team_1_score
 
         # Compare scores for actual result
-        if self.team_score == self.opponent_score:
-            self.result = "tied"
+        if self.team_score > self.opponent_score:
+            self.result = "won"
         if self.team_score < self.opponent_score:
             self.result = "lost"
-        else:   # Assume win
-            self.result = "won"
+        else:   # Assume tied
+            self.result = "tied"
 
     # The "handle_xxxx_intent" function is triggered by Mycroft when the
     # skill's intent is matched.  The intent is defined by the IntentBuilder()
