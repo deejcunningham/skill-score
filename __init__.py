@@ -91,7 +91,7 @@ class ScoreSkill(MycroftSkill):
 
     @ intent_handler(IntentBuilder("GetScoreIntent").require("Team").require("Score"))
     def handle_score_intent(self, message):
-        self.team = message.data["Team"]
+        self.team = message.data.get("Team")
         self.get_result()
         # "The {{team}} {{result}} {{team_score}} to {{opponent_score}} against the {{opponent}}"
         self.speak_dialog("score", data={"team": self.team, "result": self.result, "team_score": self.team_score, "opponent_score": self.opponent_score, "opponent": self.opponent})
