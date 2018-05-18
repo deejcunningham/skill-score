@@ -1,11 +1,13 @@
 # TODO: Add an appropriate license to your skill before publishing.  See
 # the LICENSE file for more information.
-
-# Below is the list of outside modules you'll be using in your skill.
-# They might be built-in to Python, from mycroft-core or from external
-# libraries.  If you use an external library, be sure to include it
-# in the requirements.txt file so the library is installed properly
-# when the skill gets installed later by a user.
+# TODO: Handle game in progress with separate "live" dialog - "The {{team}} are {{winning|losing|tied}} at {{team_score}} to {{opponent_score}} {{against|with}} the {{opponent}}"
+# TODO: Handle games on past days by adding "yesterday or Monday or whatever makes sense"
+# TODO: Handle beginning of month problem (see def latest_game(self):)
+# TODO: Handle games on the day but which haven't started yet (currently reports as 0-0 tie but should say "the game hasn't started yet" or just report latest final score)
+# TODO: Figure out stop method
+# TODO: Handle offseason?
+# TODO: Add more specific information (inning?)
+# TODO: Add other sports
 
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
@@ -19,15 +21,10 @@ import mlbgame
 __author__ = 'permanentlytemporary'
 # LOGGER = getLogger(__name__)
 
-# Each skill is contained within its own class, which inherits base methods
-# from the MycroftSkill class.  You extend this class as shown below.
-
 class ScoreSkill(MycroftSkill):
 
-    # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
         super(ScoreSkill, self).__init__(name="ScoreSkill")
-        # Initialize working variables used within the skill.
 
     def get_date(self):
         today = str(date.today())
@@ -76,18 +73,6 @@ class ScoreSkill(MycroftSkill):
             self.result = "lost"
         else:   # Assume tied
             self.result = "tied"
-
-    # The "handle_xxxx_intent" function is triggered by Mycroft when the
-    # skill's intent is matched.  The intent is defined by the IntentBuilder()
-    # pieces, and is triggered when the user's utterance matches the pattern
-    # defined by the keywords.  In this case, the match occurs when one word
-    # is found from each of the files:
-    #    vocab/en-us/Hello.voc
-    #    vocab/en-us/World.voc
-    # In this example that means it would match on utterances like:
-    #   'Hello world'
-    #   'Howdy you great big world'
-    #   'Greetings planet earth'
 
     @ intent_handler(IntentBuilder("GetScoreIntent").require("Team").require("Score").build())
     def handle_score_intent(self, message):
