@@ -1,9 +1,8 @@
 # TODO: Add an appropriate license to your skill before publishing.  See
 # the LICENSE file for more information.
-# TODO: Handle game in progress with separate "live" dialog - "The {{team}} are {{winning|losing|tied}} at {{team_score}} to {{opponent_score}} {{against|with}} the {{opponent}}"
-# TODO: Handle games on past days by adding "yesterday or Monday or whatever makes sense"
+# TODO: Handle games on the day but which haven't started yet (currently reports as 0-0 tie but should say "the game is scheduled to start at self.game_start_time")
 # TODO: Handle beginning of month problem (see def latest_game(self):)
-# TODO: Handle games on the day but which haven't started yet (currently reports as 0-0 tie but should say "the game hasn't started yet" or just report latest final score)
+# TODO: Handle games on past days by adding "yesterday or Monday or whatever makes sense" -- make sure to see how intents are prioritized and code accordingly
 # TODO: Figure out stop method
 # TODO: Handle offseason?
 # TODO: Add more specific information (inning?)
@@ -27,26 +26,28 @@ class ScoreSkill(MycroftSkill):
         super(ScoreSkill, self).__init__(name="ScoreSkill")
 
     def get_date(self):
-        today = str(date.today())
-        year = int(today[0:4])
-        month = int(today[5:7])
-        day = int(today[8:])
-        return year, month, day
+        self.date = str(date.today())
+        self.year = int(self.date[0:4])
+        self.month = int(self.date[5:7])
+        self.day = int(self.date[8:])
 
-    def latest_game(self):
-        # ISSUE: subtracting of days should happen while getting current date otherwise beginning of months are bad
+    def get_game(self):
+        # ISSUE: subtracting of days makes beginning of months bad - handle by checking for valid game on that date and stating "no game on that date" if none
         # ISSUE: long load times/loops during offseason while looping back/checking for latest game? - possible solution: get important dates from mlbgame and report end of season standing or record during offseason instead?
         self.game = []
         counter = 0
+        try:    # checks to see if the date was set by the intent handler method
+            self.date
+        except AttributeError:   # if not, gets todays date
+            self.get_date()
+        else:   # if yes, should do nothing
+            pass
         while self.game == []:
-            year = self.get_date()[0]
-            month = self.get_date()[1]
-            day = self.get_date()[2]
-            self.game = mlbgame.day(year, month, day-counter, home=self.team, away=self.team)
+            self.game = mlbgame.day(self.year, self.month, self.day-counter, home=self.team, away=self.team)
             counter += 1
 
     def get_result(self):
-        self.latest_game()
+        self.get_game()
         # Separates out team names and scores
         result = str(self.game[0]).split()
         team_1 = result[0]
@@ -68,17 +69,29 @@ class ScoreSkill(MycroftSkill):
 
         # Compare scores for actual result
         if self.team_score > self.opponent_score:
-            self.result = "won"
+            self.result = "winning"
         if self.team_score < self.opponent_score:
-            self.result = "lost"
+            self.result = "losing"
         else:   # Assume tied
             self.result = "tied"
 
-    @ intent_handler(IntentBuilder("GetScoreIntent").require("Team").require("Score").build())
-    def handle_score_intent(self, message):
+    # TODO: Add Date.voc with regex for handling dates in past
+    # @ intent_handler(IntentBuilder("GetPastScoreIntent").require("Team").require("Score").require("Date").build())
+    # def handle_past_score_intent(self, message):
+    #     self.team = message.data.get("Team")
+    #     # Add parser for date speech? (or is that sort of done by Date.voc + STT?) and set self.year, self.month, self.day accordingly
+    #     # Should the parsing be handled by self.get_date()?
+    #     self.date = message.data.get("Date")
+    #     # Add a past_score.dialog - check if I can use single dialog with optional data?
+    #     # "The {{team}} {{result}} {{team_score}} to {{opponent_score}} against the {{opponent}} on {{date}}"
+    #     self.speak_dialog("past_score", data={"team": self.team, "result": self.result, "team_score": self.team_score, "opponent_score": self.opponent_score, "opponent": self.opponent, "date": self.date})
+
+    @ intent_handler(IntentBuilder("GetLiveScoreIntent").require("Team").require("Score").build())
+    def handle_live_score_intent(self, message):
         self.team = message.data.get("Team")
+        # TODO: check to see if a game is in progress
         self.get_result()
-        # "The {{team}} {{result}} {{team_score}} to {{opponent_score}} against the {{opponent}}"
+        # "The {{team}} are {{result}} {{team_score}} to {{opponent_score}} against the {{opponent}}"
         self.speak_dialog("score", data={"team": self.team, "result": self.result, "team_score": self.team_score, "opponent_score": self.opponent_score, "opponent": self.opponent})
 
     # The "stop" method defines what Mycroft does when told to stop during
@@ -91,7 +104,5 @@ class ScoreSkill(MycroftSkill):
     #    pass
     #    return False
 
-# The "create_skill()" method is used to create an instance of the skill.
-# Note that it's outside the class itself.
 def create_skill():
     return ScoreSkill()
