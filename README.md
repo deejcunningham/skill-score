@@ -1,5 +1,5 @@
 ## score
-Reports the score of an MLB game.
+[Mycroft](https://mycroft.ai) skill to report the score of an MLB game.
 
 ## Description 
 Uses [panzarino's mlbgame API](https://github.com/panzarino/mlbgame) to report latest score (including live) for an MLB team.
