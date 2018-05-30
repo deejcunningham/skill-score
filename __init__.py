@@ -34,9 +34,8 @@ from mycroft import intent_handler
 from datetime import date, timedelta
 import mlbgame
 
-# __author__ and LOGGER may not be required...?
-__author__ = 'permanentlytemporary'
-# LOGGER = getLogger(__name__)
+__author__ = 'deejcunningham'
+LOGGER = getLogger(__name__)
 
 class ScoreSkill(MycroftSkill):
 
