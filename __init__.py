@@ -38,7 +38,6 @@ __author__ = 'deejcunningham'
 LOGGER = getLogger(__name__)
 
 class ScoreSkill(MycroftSkill):
-
     def __init__(self):
         super(ScoreSkill, self).__init__(name="ScoreSkill")
 
@@ -65,14 +64,34 @@ class ScoreSkill(MycroftSkill):
     def get_relative_day(self):
         self.game_date = date(year=self.game.date.year, month=self.game.date.month, day=self.game.date.day)
         difference = date.today() - self.game_date
-        if difference == timedelta(days=1):
+        if difference < timedelta(days=1):
+            self.relative_day = 'earlier_today'
+        elif difference == timedelta(days=1):
             self.relative_day = 'yesterday'
+        elif difference == timedelta(days=2):
+            self.relative_day = 'two days ago'
         else:
             self.relative_day = 'on {}'.format(self.game_date)
+
+    def get_inning(self):
+        self.overview = mlbgame.overview(self.game.game_id)
+        self.inning_state = self.overview.inning_state.lower()
+        self.inning = self.overview.inning
+        # Format the inning number...
+        if self.inning == 1:
+            self.inning = str(self.inning) + 'st'
+        elif self.inning == 2:
+            self.inning = str(self.inning) + 'nd'
+        elif self.inning == 3:
+            self.inning = str(self.inning) + 'rd'
+        else:
+            self.inning = str(self.inning) + 'th'
 
     def get_result(self):
         """Takes tangled mlbgame.ScoreBoard object and pulls out teams + their scores then calculates result"""
         self.get_game()
+        if self.game.game_status == 'IN_PROGRESS':
+            self.get_inning()
         if self.game.home_team == self.team:
             self.team_score = self.game.home_team_runs
             self.opponent = self.game.away_team
