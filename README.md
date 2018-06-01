@@ -12,5 +12,5 @@ Then add more leagues (NFL, NBA, NHL, MLS) depending on available APIs.
 * "what is the Royals score"
 
 ## Credits 
-permanentlytemporary
+David Cunningham
 Thanks panzarino for the well-documented API
