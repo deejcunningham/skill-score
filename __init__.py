@@ -35,7 +35,7 @@ from datetime import date, timedelta
 import mlbgame
 
 __author__ = 'deejcunningham'
-LOGGER = getLogger(__name__)
+# LOGGER = getLogger(__name__)
 
 class ScoreSkill(MycroftSkill):
     def __init__(self):
