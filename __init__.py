@@ -23,8 +23,7 @@
 # TODO: Add intent to ask when the game starts (today)
 # TODO: Figure out stop method
 # TODO: Handle offseason?
-# TODO: Add more specific information (inning?)
-# TODO: Add other sports
+# TODO: Find NFL and MLS APIs
 
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
@@ -65,7 +64,7 @@ class ScoreSkill(MycroftSkill):
         self.game_date = date(year=self.game.date.year, month=self.game.date.month, day=self.game.date.day)
         difference = date.today() - self.game_date
         if difference < timedelta(days=1):
-            self.relative_day = 'earlier_today'
+            self.relative_day = 'earlier today'
         elif difference == timedelta(days=1):
             self.relative_day = 'yesterday'
         elif difference == timedelta(days=2):
@@ -120,8 +119,8 @@ class ScoreSkill(MycroftSkill):
         self.team = message.data.get("Team")
         self.get_result()
         if self.game.game_status == 'IN_PROGRESS':
-            # "The {{team}} are {{result}} {{team_score}} to {{opponent_score}} against the {{opponent}}"
-            self.speak_dialog("livescore", data={"team": self.team, "result": self.result, "team_score": self.team_score, "opponent_score": self.opponent_score, "opponent": self.opponent,})
+            # "The {{team}} are {{result}} {{team_score}} to {{opponent_score}} against the {{opponent}} in the {{inning_state}} of the {{inning}}
+            self.speak_dialog("livescore", data={"team": self.team, "result": self.result, "team_score": self.team_score, "opponent_score": self.opponent_score, "opponent": self.opponent, "inning_state": self.inning_state, "inning": self.inning,})
         else:
             # "The {{team}} {{result}} {{team_score}} to {{opponent_score}} against the {{opponent}} {{relative_day}}"
             self.speak_dialog("pastscore", data={"team": self.team, "result": self.result, "team_score": self.team_score, "opponent_score": self.opponent_score, "opponent": self.opponent,"relative_day": self.relative_day})
