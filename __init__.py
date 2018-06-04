@@ -50,11 +50,11 @@ class ScoreSkill(MycroftSkill):
 
     def get_game(self):
         """Gets the last valid (not pre_game) game, so IN_PROGRESS or FINAL"""
-        # CHECK to see what happens to game[0].game_status on rain outs/cancelled games...
+        # CHECK to see what happens to game[0].game_status on rain outs/cancelled games... they are 'FINAL'
         self.get_date()     # Gets todays date
         self.game = mlbgame.day(self.year, self.month, self.day, home=self.team, away=self.team)
         adjust = -1
-        while self.game == [] or self.game[0].game_status == 'PRE_GAME':  # If the game today hasn't started yet or there is no game at all today, look back each day to find one
+        while self.game == [] or self.game[-1].game_status == 'PRE_GAME':  # If the game today hasn't started yet or there is no game at all today, look back each day to find one
             self.get_date(adjust)
             self.game = mlbgame.day(self.year, self.month, self.day, home=self.team, away=self.team)
             adjust -= 1
