@@ -32,6 +32,8 @@ from mycroft import intent_handler
 
 from datetime import date, timedelta
 import mlbgame
+import socket
+socket.setdefaulttimeout(100)
 
 __author__ = 'deejcunningham'
 # LOGGER = getLogger(__name__)
