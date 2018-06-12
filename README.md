@@ -1,5 +1,7 @@
-skill-score
-======
+## score
+Reports latest MLB scores
+
+## Description 
 Skill-score is an application that enables Mycroft to answer user questions about Major League Baseball (MLB) scores. [Mycroft](https://mycroft.ai) is an open-source AI voice assistant. Skill-score uses [panzarino's mlbgame API](https://github.com/panzarino/mlbgame) to report an MLB team's latest final scores, including live scores. 
 
 User input has the format:
@@ -16,16 +18,9 @@ The next goals for skill-score are the ability to:
 * support more leagues (e.g., National Football League, National Basketball League), depending on available APIs.
 
 ## Examples 
-
-**User**: "What is the Royals score?"
-<br />**Mycroft**: "The Royals are winning 2 to 1 against the Yankees in the bottom of the sixth inning."
-
-**User**: "What is the Angels score?"
-<br />**Mycroft**: "The Angels lost 2 to 5 against the Mariners yesterday."
-
-**User**: "What is the Yankees score?"
-<br />**Mycroft**: "The Yankees won 5 to 4 against the Royals two days ago."
+* "what is the Royals score"
+* "what is the Angels score"
+* "what is the Yankees score"
 
 ## Credits 
-David Cunningham
-Thanks panzarino for the well-documented API
+deejcunningham
