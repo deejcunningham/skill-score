@@ -26,6 +26,21 @@ The next goals for skill-score are the ability to:
 **User**: "What is the Yankees score?"
 <br />**Mycroft**: "The Yankees won 5 to 4 against the Royals two days ago."
 
+## Getting Started
+
+### Prerequisites
+Download the following prerequisites:
+1. Mycroft - see [installation details](https://mycroft.ai/get-mycroft/)
+2. Mycroft Skills Manager (msm) - see [installation details](https://github.com/MycroftAI/mycroft-skills-manager)
+    - msm will install skill-score in the correct directory with the necessary requirements
+
+### Installation
+In the console, install skill-score using:
+~~~
+msm install https://github.com/deejcunningham/skill-score
+~~~
+
+
 ## Credits 
 David Cunningham
 Thanks panzarino for the well-documented API
