@@ -13,6 +13,8 @@ If a game is in progress, Mycroft will respond:
 If a game is not in progress, Mycroft will respond:
 <br />"The {team} won/lost {score} to {score} against the {opponent} {number-of-days} ago."
 
+### Next Goals
+
 The next goals for skill-score are the ability to: 
 * give the time of the next MLB game; and
 * support more leagues (e.g., National Football League, National Basketball League), depending on available APIs.
