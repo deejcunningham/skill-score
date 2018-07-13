@@ -35,7 +35,7 @@ Download the following prerequisites:
 ~~~
 sudo apt-get install libxml2-dev libxslt-dev
 ~~~
-The mlbgame library relies on lxml, which depends on these two modules. Still searching for a way to have these installed automatically - see [issue #20](https://github.com/deejcunningham/skill-score/issues/2).
+The mlbgame library relies on lxml, which depends on these two modules. Still searching for a way to have these installed automatically - see [issue #20](https://github.com/deejcunningham/skill-score/issues/20).
 
 ### Installation
 In the console, install skill-score using:
