@@ -31,6 +31,11 @@ Download the following prerequisites:
 1. Mycroft - see [installation details](https://mycroft.ai/get-mycroft/)
 2. Mycroft Skills Manager (msm) - see [installation details](https://github.com/MycroftAI/mycroft-skills-manager)
     - msm will install skill-score in the correct directory with the necessary requirements
+3. If you are running on Mk.1 hardware (or PiCroft) you will need to manually install libxml2-dev and libxslt-dev using
+~~~
+sudo apt-get install libxml2-dev libxslt-dev
+~~~
+The mlbgame library relies on lxml, which depends on these two modules. Still searching for a way to have these installed automatically - see [issue #20](https://github.com/deejcunningham/skill-score/issues/2).
 
 ### Installation
 In the console, install skill-score using:
