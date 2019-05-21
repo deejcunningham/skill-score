@@ -1,6 +1,8 @@
 ## score
 Reports latest MLB scores
 
+No longer updated or maintained.
+
 ## Description 
 Skill-score is an application that enables Mycroft to answer user questions about Major League Baseball (MLB) scores. [Mycroft](https://mycroft.ai) is an open-source AI voice assistant. Skill-score uses [panzarino's mlbgame API](https://github.com/panzarino/mlbgame) to report an MLB team's latest final scores, including live scores. 
 
@@ -42,7 +44,3 @@ In the console, install skill-score using:
 ~~~
 msm install https://github.com/deejcunningham/skill-score
 ~~~
-
-
-## Credits 
-deejcunningham
